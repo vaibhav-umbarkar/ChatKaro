@@ -18,7 +18,7 @@ pipeline {
 
         stage('Install dependency') {
             steps {
-                sh 'npm ci'
+                sh 'npm install'
             }
         }
 
