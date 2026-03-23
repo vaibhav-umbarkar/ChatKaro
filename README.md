@@ -13,3 +13,5 @@ Final Show Case
 - Save previous msgs.
 - Add Private Rooms.
 - Add emojis.
+
+Project Version 1.0
