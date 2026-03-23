@@ -14,4 +14,4 @@ Final Show Case
 - Add Private Rooms.
 - Add emojis.
 
-Project Version 1.0
+Project Version 1.1
