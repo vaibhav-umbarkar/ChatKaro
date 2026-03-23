@@ -18,6 +18,7 @@ pipeline {
 
         stage('Install dependency') {
             steps {
+                sh 'npm config set cache .npm-cache'
                 sh 'npm install'
             }
         }
