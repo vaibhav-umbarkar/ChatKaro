@@ -29,7 +29,9 @@ pipeline {
 
             post {
                 always {
-                    junit 'reports/junit.xml'
+                    junit allowEmptyResults: true, testResults: 'reports/test-results.xml'
+
+                    archiveArtifacts artifacts: 'reports/**/*', fingerprint: true
                 }
             }
         }
