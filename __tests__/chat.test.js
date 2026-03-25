@@ -75,13 +75,20 @@ test('should update usernames list', (done) => {
   clientSocket1 = ioClient(URL);
   clientSocket2 = ioClient(URL);
 
-  clientSocket1.emit('new user', 'A', () => {
-    clientSocket2.emit('new user', 'B', () => {
+  clientSocket1.on('connect', () => {
+    clientSocket2.on('connect', () => {
 
-      clientSocket1.on('usernames', (users) => {
+      const handler = (users) => {
         if (users.includes('A') && users.includes('B')) {
+          clientSocket1.off('usernames', handler); // prevent multiple calls
           done();
         }
+      };
+
+      clientSocket1.on('usernames', handler);
+
+      clientSocket1.emit('new user', 'A', () => {
+        clientSocket2.emit('new user', 'B');
       });
 
     });
