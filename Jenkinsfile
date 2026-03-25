@@ -35,5 +35,39 @@ pipeline {
                 }
             }
         }
+
+        stage('Build') {
+            steps {
+                sh ''' 
+                # Msg
+                echo "Building artifact..."
+
+                # Clean old build
+                rm -rf build
+                mkdir build
+
+                # Copy required files
+                cp app.js package.json package-lock.json build/
+                cp -r css build/
+                cp -r js build/
+                cp index.html build/
+
+                # Install production dependencies
+                cd build
+                npm ci --omit=dev
+
+                cd ..
+
+                # Create compressed artifact
+                tar -czf chatkaro-${BUILD_NUMBER}.tar.gz build
+                '''
+            }
+
+            post {
+                success {
+                    archiveArtifacts artifacts: "chatkaro-${BUILD_NUMBER}.tar.gz", fingerprint: true
+                }
+            }
+        }
     }
 }
