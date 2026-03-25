@@ -54,7 +54,7 @@ pipeline {
 
                 # Install production dependencies
                 cd build
-                npm ci --omit=dev
+                npm ci --omit=dev --cache .npm-cache
 
                 cd ..
 
